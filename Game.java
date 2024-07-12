@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Game implements KeyListener, Runnable {
+public class Game extends Canvas implements KeyListener, Runnable {
     private Character player;
     private String bgLocation = "bg.png";
     private File bg;
@@ -18,6 +18,8 @@ public class Game implements KeyListener, Runnable {
 
     private boolean pause = false;
     private boolean end = false;
+
+    private boolean[] keys;
 
     public Game(String charChoice) {
         try {
@@ -34,9 +36,11 @@ public class Game implements KeyListener, Runnable {
 
 
         setBackground(Color.black);
+        keys = new boolean[1];
 
+        this.addKeyListener(this);
         new Thread(this).start();
-        
+
         setVisible(true);
 
         player = new Character(charChoice, 20, 20, 20, 20, 3);
@@ -48,13 +52,57 @@ public class Game implements KeyListener, Runnable {
 
     public void paint(Graphics window) {
         if (end) return;
+        if (pause) {
+            if (keys[0]) {
+                pause = false;
+                keys[0] = false;
+            } else {
+                return;
+            }
+        }
         
         Graphics2D twoDGraph = (Graphics2D) window;
 
         if (backg != null) {
             twoDGraph.drawImage(backg, 0, 0, this);
         }
+
+        if (keys[0]) {
+            charter.jump();
+        }
+
+        /* 
+        if (System.currentTimeMillis() - lastObstacle > Math.random() * 300 + 100) {
+            obstacles.add(new Obstacle());
+            lastObstacle = System.currentTimeMillis();
+        }
+
+        if (System.currentTimeMillis() - lastBullet > Math.random() * 300 + 100) {
+            obstacles.add(new Obstacle("bullet", 100, 100, 10, 10, 5));
+            lastBullet = System.currentTimeMillis();
+        }
+        */
     }
+
+
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            keys[0] = true;
+        }
+        repaint();
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            keys[0] = false;
+        }
+        repaint();
+    }
+
+    public void keyTyped(KeyEvent e) {
+        // empty
+    }
+
 
     public void run() {
         try {

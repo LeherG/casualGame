@@ -45,6 +45,8 @@ public class Character extends MovingThing {
         ySpeed = s;
     }
 
+    public void move(String direction){ }
+
     public void draw(Graphics window) {
         window.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
     }
