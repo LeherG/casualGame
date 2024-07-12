@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 public class Game extends Canvas implements KeyListener, Runnable {
     private Character player;
-    private int testing;
     private String bgLocation = "bg.png";
     private File bg;
     private BufferedImage backg;
