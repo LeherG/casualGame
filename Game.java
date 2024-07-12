@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 public class Game extends Canvas implements KeyListener, Runnable {
     private Character player;
+    private int testing;
     private String bgLocation = "bg.png";
     private File bg;
     private BufferedImage backg;
@@ -43,7 +44,7 @@ public class Game extends Canvas implements KeyListener, Runnable {
 
         setVisible(true);
 
-        player = new Character(charChoice, 20, 20, 20, 20, 3);
+        player = new Character(charChoice, 20, 20, 20, 20, 3); 
     }
 
     public void update(Graphics window) {
