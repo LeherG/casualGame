@@ -1,3 +1,3 @@
-# casualGame
+# game
 
 testing
