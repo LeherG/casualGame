@@ -1,3 +1,3 @@
 # casualGame
 
-just learning & trying things :)
+testing
